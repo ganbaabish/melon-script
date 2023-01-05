@@ -352,33 +352,18 @@ def run(token_keys: dict):
 
 while True:
     try:
-        i = int("sda")
-        print("starting with ganbat tokens")
         run(ganbat_tokens)
     except tweepy.TooManyRequests:
-        print("something went wrong...! trying to start with zayabaatar tokens")
         run(zayabaatar_tokens)
     except tweepy.BadRequest as err:            # badrequest exception will be raised if trending tweets count is too many or could't be found 
-        print(err)
-        # insert_error_log(error=str(err))
         time.sleep(secs = 1800)
         continue
     except tweepy.TwitterServerError as err:
-        print(err)
-        # insert_error_log(error=str(err))
         time.sleep(3600)
         continue
     except IndexError as err:
-        print(err)
-        # insert_error_log(error=str(err))
         continue
-    except ValueError as err:
-        mail_sender.run(str(err))
-        shutdown.run()
-    except AttributeError as err:
-        mail_sender.run(str(err))
-        shutdown.run()
     except Exception as err:
-        mail_sender.run(str(err))
-        # insert_error_log(error=str(err))
-        shutdown.run()
+        time.sleep(3600)
+        continue
+        
